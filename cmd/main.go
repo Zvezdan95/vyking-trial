@@ -43,11 +43,10 @@ func main() {
 	// Seed bets
 	for i := 1; i <= 10000; i++ {
 		playerID := rand.Intn(100) + 1
-		tournamentID := rand.Intn(10) + 1
 		amount := rand.Intn(10000)
 		betTime := time.Now().AddDate(0, 0, -rand.Intn(365))
 
-		_, err := db.Exec("INSERT INTO bets (player_id, tournament_id, amount, bet_time) VALUES (?, ?, ?, ?)", playerID, tournamentID, amount, betTime)
+		_, err := db.Exec("INSERT INTO bets (player_id,  amount, bet_time) VALUES (?, ?, ?)", playerID, amount, betTime)
 		if err != nil {
 			log.Fatal(err)
 		}
