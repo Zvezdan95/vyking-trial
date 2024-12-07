@@ -40,6 +40,17 @@ func main() {
 		}
 	}
 
+	tournamentName := "Today's Tournament"
+	prizePool := 10000
+	startDate := time.Now().AddDate(0, 0, -7)
+	endDate := time.Now()
+
+	_, err = db.Exec("INSERT INTO tournaments (tournament_name, prize_pool, start_date, end_date) VALUES (?, ?, ?, ?)",
+		tournamentName, prizePool, startDate, endDate)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	// Seed bets
 	for i := 1; i <= 10000; i++ {
 		playerID := rand.Intn(100) + 1
