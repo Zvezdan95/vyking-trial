@@ -3,7 +3,9 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
@@ -27,8 +29,16 @@ func ConnectDB() (*sql.DB, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error opening database connection: %w", err)
 	}
+	// Wait for MySQL to start (new addition)
+	for i := 0; i < 30; i++ { // Try for 30 seconds
+		err = db.Ping()
+		if err == nil {
+			break // MySQL is ready
+		}
+		log.Println("Waiting for MySQL to start...")
+		time.Sleep(1 * time.Second)
+	}
 
-	err = db.Ping()
 	if err != nil {
 		return nil, fmt.Errorf("error pinging database: %w", err)
 	}

@@ -7,7 +7,21 @@ services:
       - "3000:3000"
     volumes:
       - .:/usr/src/app
-    command: air -c .air.toml ./app/main.go -b 0.0.0.0
+    command:
+      - sh
+      - -c
+      - |
+        # Build the Go application
+        go build -o main ./app
+
+        # Build the seeder
+        CGO_ENABLED=0 GOOS=linux go build -ldflags '-extldflags "-static"' -o seed ./cmd
+
+        # Make the seeder executable
+        chmod +x /usr/src/app/seed
+
+        # Run air
+        air -c .air.toml ./app/main.go -b 0.0.0.0
     depends_on:
       - db
 
@@ -17,6 +31,6 @@ services:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
       - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_USER=${DB_USER}
-      - MYSQL_USER_PASSWORD==${DB_USER_PASSWORD}
+      - MYSQL_USER_PASSWORD=${DB_USER_PASSWORD}
     ports:
       - "3306:3306"

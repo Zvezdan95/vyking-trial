@@ -1,8 +1,11 @@
 # Vyking trial 🛡🪓
 ## Initialization 🏁
-- `docker-compose up -d --build`
-- `docker cp script.sql vyking-trial-db-1:/script.sql`
-- `docker exec -i vyking-trial-db-1 bash -c 'mysql -h 127.0.0.1 -u root -p"${MYSQL_ROOT_PASSWORD}" < /docker-entrypoint-initdb.d/script.sql'`
+- Build images: `docker-compose up -d --build`
+- Copy sql file to database container: `docker cp script.sql vyking-trial-db-1:/script.sql`
+- Run the sql file: `docker exec -i vyking-trial-db-1 bash -c 'mysql -h 127.0.0.1 -u root -p"${MYSQL_ROOT_PASSWORD}" < /docker-entrypoint-initdb.d/script.sql'`
+
+## Seeding the database 🌱
+- Run the seeder: `sudo docker exec -it vyking-trial-web-1 /usr/src/app/seed`
 
 ## Util 🛠
 - Enter mysql :`docker exec -it vyking-trial-db-1 mysql -u root -p` password in `.env`
