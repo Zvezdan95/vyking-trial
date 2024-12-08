@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   web:
+    container_name: vyking-trial-web
     build: .
     ports:
       - "3000:3000"
@@ -26,6 +27,7 @@ services:
       - db
 
   db:
+    container_name: vyking-trial-db
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
