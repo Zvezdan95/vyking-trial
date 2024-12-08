@@ -8,7 +8,7 @@
 
 ## Seeding the database 🌱
 
-- Run the seeder: `sudo docker exec -it vyking-trial-web /usr/src/app/seed`
+- Run the seeder: `docker exec -it vyking-trial-web /usr/src/app/seed`
 
 ## Endpoints 🎯
 
