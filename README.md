@@ -10,6 +10,11 @@
 
 - Run the seeder: `sudo docker exec -it vyking-trial-web-1 /usr/src/app/seed`
 
+## Endpoints 🎯
+
+- All user ranked by their current balance: http://localhost:3000/ranking
+- All user ranked by their amount they spent in the current tournament: http://localhost:3000/ranking
+
 ## Util 🛠
 
 - Enter mysql: `docker exec -it vyking-trial-db-1 mysql -u root -p` (password in `.env`)
